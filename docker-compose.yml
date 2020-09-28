@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+
+  php:
+    build:
+      context: php
+    networks:
+      - default
+    ports:
+      - "81:80"
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:10.5.5
+    networks:
+      - default
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./databases/mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_pass
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    networks:
+      - default
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: test_user
+      PMA_PASSWORD: test_pass
+
+networks:
+  default:
+    driver: bridge
