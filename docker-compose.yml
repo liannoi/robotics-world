@@ -4,13 +4,13 @@ services:
 
   php:
     build:
-      context: php
+      context: .docker/php
     networks:
       - default
     ports:
       - "81:80"
     volumes:
-      - ./app:/var/www/html
+      - ./src:/var/www/html
     depends_on:
       - mariadb
 
@@ -21,7 +21,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./databases/mariadb:/var/lib/mysql
+      - ./db/mariadb:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: testdb
