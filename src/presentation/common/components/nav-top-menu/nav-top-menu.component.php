@@ -35,7 +35,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link font-weight-bold">Sign up</a>
+                        <a href="sign_up" class="nav-link font-weight-bold">Sign up</a>
                     </li>
                 </ul>
             </div>

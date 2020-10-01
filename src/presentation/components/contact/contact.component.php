@@ -1,11 +1,13 @@
 <?php
+
 /*
-if (!$this->user->havePermissions) { */?><!--
+if (!$this->user->havePermissions) { */ ?><!--
     <script>
       window.location = 'status_403_forbidden';
     </script>
-    --><?/*
-} */?>
+    --><?
+/*
+} */ ?>
 
 <div class="row mt-4">
     <div class="col-sm-12">
