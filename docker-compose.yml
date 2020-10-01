@@ -5,23 +5,23 @@ services:
   php:
     build:
       context: .docker/php
-    networks:
-      - default
     ports:
       - "81:80"
     volumes:
       - ./src:/var/www/html
+    networks:
+      - default
     depends_on:
       - mariadb
 
   mariadb:
     image: mariadb:10.5.5
-    networks:
-      - default
     ports:
       - "3306:3306"
     volumes:
       - ./db/mariadb:/var/lib/mysql
+    networks:
+      - default
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: testdb
@@ -30,10 +30,10 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:latest
-    networks:
-      - default
     ports:
       - "8080:80"
+    networks:
+      - default
     depends_on:
       - mariadb
     environment:

@@ -6,27 +6,28 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $this->title ?> - Robotics World</title>
+    <title><?= $this->title ?> Robotics World</title>
+    <link rel="icon" href="presentation/common/images/favicon.ico">
+    <link rel="stylesheet" href="presentation/common/components/app/app.component.css">
+    <link rel="stylesheet" href="presentation/common/components/nav-top-menu/nav-top-menu.component.css">
+    <link rel="stylesheet" href="presentation/components/main/main.component.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="presentation/components/nav-top-menu/nav-top-menu.component.css">
-    <link rel="stylesheet" href="presentation/components/nav-footer/nav-footer.component.css">
-    <link rel="stylesheet" href="presentation/components/app/app.component.css">
 </head>
 
 <body>
-<?php
-include 'presentation/components/nav-top-menu/nav-top-menu.component.php' ?>
+<?
+include 'presentation/common/components/nav-top-menu/nav-top-menu.component.php' ?>
 
 <div class="container">
     <main role="main">
-        <?php
+        <?
         include $this->content ?>
     </main>
 </div>
 
-<?php
-include 'presentation/components/nav-footer/nav-footer.component.php' ?>
+<?
+include 'presentation/common/components/nav-footer/nav-footer.component.php' ?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
