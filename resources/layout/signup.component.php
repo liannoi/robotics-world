@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+require_once "app/Models/Role.php";
 require_once "app/Models/Status.php";
 
+use App\Http\RoleBuilder;
 use App\Http\StatusBuilder;
 
 $statuses = (new StatusBuilder())->build()->getAll();
+$roles = (new RoleBuilder())->build()->getAll();
 ?>
 
 <div class="row mt-5 mb-5">
@@ -58,11 +61,11 @@ $statuses = (new StatusBuilder())->build()->getAll();
             <div class="form-group mb-5">
                 <label for="user_roles" class="font-weight-bold">Roles</label>
                 <select multiple class="form-control" id="user_roles">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <?
+                    foreach ($roles as $role) { ?>
+                        <option><?= $role->name ?></option>
+                        <?
+                    } ?>
                 </select>
             </div>
 
