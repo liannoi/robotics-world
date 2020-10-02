@@ -5,8 +5,8 @@ declare(strict_types=1);
 require_once "app/Models/Role.php";
 require_once "app/Models/Status.php";
 
-use App\Http\RoleBuilder;
-use App\Http\StatusBuilder;
+use App\Models\RoleBuilder;
+use App\Models\StatusBuilder;
 
 $statuses = (new StatusBuilder())->build()->getAll();
 $roles = (new RoleBuilder())->build()->getAll();
@@ -20,7 +20,7 @@ $roles = (new RoleBuilder())->build()->getAll();
 
 <div class="row mb-5 d-flex justify-content-center align-items-center">
     <div class="col-sm-4">
-        <form action="../../index.php" method="post">
+        <form action="signup-result" method="post">
             <div class="form-group">
                 <label for="user_username" class="font-weight-bold">Username</label>
 
@@ -49,10 +49,10 @@ $roles = (new RoleBuilder())->build()->getAll();
             <div class="form-group">
                 <label for="user_status" class="font-weight-bold">Status</label>
 
-                <select class="form-control" id="user_status">
+                <select class="form-control" id="user_status" name="user[status]">
                     <?
                     foreach ($statuses as $status) { ?>
-                        <option><?= $status->name ?></option>
+                        <option value="<?= $status->statusId ?>"><?= $status->name ?></option>
                         <?
                     } ?>
                 </select>
@@ -60,10 +60,10 @@ $roles = (new RoleBuilder())->build()->getAll();
 
             <div class="form-group mb-5">
                 <label for="user_roles" class="font-weight-bold">Roles</label>
-                <select multiple class="form-control" id="user_roles">
+                <select multiple class="form-control" id="user_roles" name="user[roles][]" required>
                     <?
                     foreach ($roles as $role) { ?>
-                        <option><?= $role->name ?></option>
+                        <option value="<?= $role->roleId ?>"><?= $role->name ?></option>
                         <?
                     } ?>
                 </select>

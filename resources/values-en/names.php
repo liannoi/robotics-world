@@ -6,9 +6,11 @@ return [
     "blog" => "Blog -",
     "contact" => "Contact us -",
     "main" => "",
+    "profile" => "Profile -",
 
-    "signin" => "Sign in to Robotics World -",
-    "signin-result" => "[DEBUG] (auth / sign in)",
+    "sign-in" => "Sign in to Robotics World -",
+    "sign-in-result" => "[DEBUG] (auth / sign in)",
+    "sign-out-result" => "",
     "signup" => "Join Robotics World -",
     "signup-result" => "[DEBUG] (auth / sign up)",
 

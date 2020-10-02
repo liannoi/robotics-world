@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-require_once "app/Models/User.php";
-
 class PageController
 {
-    private User $user;
+    private string $username;
     private array $names;
     private string $title;
     private string $id;
@@ -18,7 +16,7 @@ class PageController
     public function __construct()
     {
         $this->id = $this->get_id();
-        $this->user = $this->get_user();
+        $this->username = $this->get_user();
         $this->setupNames();
         $this->title = $this->names[$this->id];
         $this->content = "resources/layout/{$this->id}.component.php";
@@ -44,7 +42,7 @@ class PageController
         $this->names = require "resources/values-en/names.php";
     }
 
-    private function get_user(): User
+    private function get_user(): string
     {
         $sessionUser = $_SESSION["user"];
         $cookieUser = $_COOKIE["user"];
@@ -55,7 +53,7 @@ class PageController
             return $cookieUser;
         }
 
-        return new User("Guest", false);
+        return "";
     }
 
     public function load(): void

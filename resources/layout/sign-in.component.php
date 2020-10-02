@@ -6,7 +6,7 @@
 
 <div class="row mb-5 d-flex justify-content-center align-items-center">
     <div class="col-sm-4">
-        <form action="../../index.php" method="post" class="bg-white p-4 auth-form-body">
+        <form action="signin-result" method="post" class="bg-white p-4 auth-form-body">
             <div class="form-group">
                 <label for="user_username" class="font-weight-bold">Username</label>
 
@@ -21,7 +21,7 @@
 
             <div class="form-check mb-4">
                 <input type="checkbox" class="form-check-input" name="user[remember]" id="user_remember"
-                       value="remember">
+                       value="true">
 
                 <label for="user_remember" class="form-check-label">Remember me</label>
             </div>

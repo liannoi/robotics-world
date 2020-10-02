@@ -23,20 +23,34 @@
                     </li>
                 </ul>
 
+
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link disabled font-weight-bold text-white">
-                            Welcome, <?= $this->user->username ?>
-                        </a>
-                    </li>
+                    <?
+                    if ($this->username == "") { ?>
+                        <li class="nav-item">
+                            <a href="sign-in" class="nav-link font-weight-bold">Sign in</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a href="signin" class="nav-link font-weight-bold">Sign in</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="signup" class="nav-link font-weight-bold">Sign up</a>
+                        </li>
+                        <?
+                    } else { ?>
+                        <li class="nav-item">
+                            <a href="/" class="nav-link font-weight-bold disabled text-white">
+                                Signed in as <strong><?= $this->username ?></strong>
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a href="signup" class="nav-link font-weight-bold">Sign up</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="profile" class="nav-link font-weight-bold">Your profile</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="sign-out-result" class="nav-link font-weight-bold">Sign out</a>
+                        </li>
+                        <?
+                    } ?>
                 </ul>
             </div>
         </div>
