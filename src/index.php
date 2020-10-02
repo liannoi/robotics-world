@@ -1,11 +1,11 @@
 <?php
 
-require "presentation/controllers/PageController.php";
+require "presentation/FrontController.php";
 
-use RoboticsWorld\Presentation\Controllers\PageController;
+use RoboticsWorld\Presentation\FrontController;
 
 (function () {
     session_start();
-    $page = new PageController();
+    $page = new FrontController();
     $page->load();
 })();

@@ -31,11 +31,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="sign_in" class="nav-link font-weight-bold">Sign in</a>
+                        <a href="signin" class="nav-link font-weight-bold">Sign in</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="sign_up" class="nav-link font-weight-bold">Sign up</a>
+                        <a href="signup" class="nav-link font-weight-bold">Sign up</a>
                     </li>
                 </ul>
             </div>

@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS RoboticsWorld;
 CREATE DATABASE RoboticsWorld;
 USE RoboticsWorld;
 
-DROP TABLE IF EXISTS Statues;
+DROP TABLE IF EXISTS Statuses;
 CREATE TABLE Statuses
 (
     StatusId  INT          NOT NULL AUTO_INCREMENT,

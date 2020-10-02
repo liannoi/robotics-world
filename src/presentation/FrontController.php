@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace RoboticsWorld\Presentation\Controllers;
+namespace RoboticsWorld\Presentation;
 
-require "domain/entities/User.php";
+require_once "domain/entities/User.php";
 
 use RoboticsWorld\Domain\Entities\User;
 
-class PageController
+class FrontController
 {
     private User $user;
     private array $names;
@@ -30,7 +30,7 @@ class PageController
     private function get_id(): string
     {
         $id = $_GET["id"];
-        $this->names = require "presentation/common/resources/names.php";
+        $this->names = require_once "presentation/common/resources/names.php";
 
         if (!isset($id)) {
             return "main";
