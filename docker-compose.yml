@@ -4,11 +4,11 @@ services:
 
   php:
     build:
-      context: ./docker/php
+      context: docker/images/php
     ports:
       - "81:80"
     volumes:
-      - ./src:/var/www/html
+      - .:/var/www/html
     networks:
       - default
     depends_on:
