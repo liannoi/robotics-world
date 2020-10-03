@@ -23,7 +23,7 @@ class RegexValidator extends AbstractValidator
 
     public function username(string $input): bool
     {
-        $pattern = "/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/";
+        $pattern = "/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/";
 
         try {
             return $this->validate($pattern, $input, "Username doesn't match the security policy.");
