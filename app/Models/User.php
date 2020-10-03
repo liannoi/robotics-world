@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-require_once "app/Models/AbstractModel.php";
+use App\Exceptions\AuthenticationException;
 
-class User extends AbstractModel
+require_once "app/Models/ActiveRecord.php";
+
+class User extends ActiveRecord
 {
     public int $userId;
     public string $username;
@@ -17,7 +19,7 @@ class User extends AbstractModel
     public string $signUpDate;
     public bool $isRemoved;
 
-    public function __construct(array $associative)
+    public function __construct(array $associative = array())
     {
         parent::__construct();
         $this->userId = (int)$associative["UserId"] ?? 0;
@@ -30,7 +32,7 @@ class User extends AbstractModel
         $this->isRemoved = (bool)$associative["IsRemoved"] ?? false;
     }
 
-    public function create($entity): void
+    public function create(): void
     {
         $query = "INSERT INTO Users (Username, Email, Password, StatusId)";
         $query .= " VALUES (?, ?, ?, ?)";
@@ -38,10 +40,10 @@ class User extends AbstractModel
         $this->query(
             $query,
             "sssi",
-            $entity->username,
-            $entity->email,
-            $entity->password,
-            $entity->statusId
+            $this->username,
+            $this->email,
+            $this->password,
+            $this->statusId
         );
     }
 
@@ -52,38 +54,58 @@ class User extends AbstractModel
         return $this->mapFrom($query, User::class);
     }
 
-    public function getById($id)
+    public function getById(): User
     {
+        $query = "SELECT * FROM Users WHERE UserId = ?";
+
         return new User(
-            $this->query("SELECT * FROM Users WHERE UserId = ?", "i", $id)
+            $this->query($query, "i", $this->userId)
                 ->get_result()
                 ->fetch_assoc()
         );
     }
 
-    public function update($entity): void
+    public function update(): void
     {
-        $this->query(
-            "UPDATE Users SET Username = ? WHERE UserId = ?",
-            "si",
-            $entity->username,
-            $entity->userId
-        );
+        $query = "UPDATE Users SET Username = ? WHERE UserId = ?";
+
+        $this->query($query, "si", $this->username, $this->userId);
     }
 
-    public function delete($id): void
+    public function delete(): void
     {
-        $this->query(
-            "DELETE FROM Users WHERE UserId = ?",
-            "i",
-            $id
-        );
+        $query = "DELETE FROM Users WHERE UserId = ?";
+
+        $this->query($query, "i", $this->userId);
+    }
+
+    public function auth(): User
+    {
+        $query = "SELECT U.UserId, U.Username, U.StatusId, U.Email, U.IsEmailVerified, U.Email FROM Users AS U";
+        $query .= " WHERE Username = ? AND Password = ?";
+
+        $associative = $this->query($query, "ss", $this->username, $this->password)
+            ->get_result()
+            ->fetch_assoc();
+
+        if ($associative == null) {
+            throw new AuthenticationException();
+        }
+
+        return new User($associative);
     }
 }
 
 class UserBuilder
 {
     private array $associative = [];
+
+    public function withId(int $id): UserBuilder
+    {
+        $this->associative["UserId"] = $id;
+
+        return $this;
+    }
 
     public function withUsername(string $username): UserBuilder
     {

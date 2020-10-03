@@ -5,15 +5,15 @@ declare(strict_types=1);
 require_once "app/Models/Role.php";
 require_once "app/Models/Status.php";
 
-use App\Models\RoleBuilder;
-use App\Models\StatusBuilder;
+use App\Models\Role;
+use App\Models\Status;
 
-$statuses = (new StatusBuilder())->build()->getAll();
-$roles = (new RoleBuilder())->build()->getAll();
+$statuses = (new Status())->getAll();
+$roles = (new Role())->getAll();
 ?>
 
-<div class="row mt-5 mb-5">
-    <div class="col-md-12">
+<div class="row mt-5 mb-5 d-flex justify-content-center align-items-center">
+    <div class="col-sm-3">
         <h3 class="text-center">Create your account</h3>
     </div>
 </div>

@@ -12,7 +12,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12 mb-4">
+    <div class="col-sm-12 mb-5">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci consectetur deleniti distinctio, esse
             eveniet ipsum maxime, nemo nobis non possimus quia rerum totam. Atque laborum libero molestias natus
             repellat.</p>

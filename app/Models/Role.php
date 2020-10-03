@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-require_once "app/Models/AbstractModel.php";
+require_once "app/Models/ActiveRecord.php";
 
-class Role extends AbstractModel
+class Role extends ActiveRecord
 {
     public int $roleId;
     public string $name;
     public bool $isRemoved;
 
-    public function __construct(array $associative)
+    public function __construct(array $associative = array())
     {
         parent::__construct();
         $this->roleId = (int)$associative["RoleId"] ?? 0;
@@ -27,41 +27,41 @@ class Role extends AbstractModel
         return $this->mapFrom($query, Role::class);
     }
 
-    public function getById($id)
+    public function getById(): Role
     {
+        $query = "SELECT * FROM Roles WHERE RoleId = ?";
+
         return new Role(
-            $this->query("SELECT * FROM Roles WHERE RoleId = ?", "i", $id)
+            $this->query($query, "i", $this->roleId)
                 ->get_result()
                 ->fetch_assoc()
         );
     }
 
-    public function update($entity): void
+    public function update(): void
     {
-        $this->query(
-            "UPDATE Roles SET Name = ? WHERE RoleId = ?",
-            "si",
-            $entity->name,
-            $entity->roleId
-        );
+        $query = "UPDATE Roles SET Name = ? WHERE RoleId = ?";
+
+        $this->query($query, "si", $this->name, $this->roleId);
     }
 
-    public function delete($id): void
+    public function delete(): void
     {
-        $this->query(
-            "DELETE FROM Roles WHERE RoleId = ?",
-            "i",
-            $id
-        );
+        $query = "DELETE FROM Roles WHERE RoleId = ?";
+
+        $this->query($query, "i", $this->roleId);
     }
 
-    public function create($entity): void
+    public function create(): void
     {
-        $this->query(
-            "INSERT INTO Roles (Name) VALUES (?)",
-            "s",
-            $entity->name
-        );
+        $query = "INSERT INTO Roles (Name) VALUES (?)";
+
+        $this->query($query, "s", $this->name);
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
 

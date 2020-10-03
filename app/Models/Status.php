@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-require_once "app/Models/AbstractModel.php";
+require_once "app/Models/ActiveRecord.php";
 
-class Status extends AbstractModel
+class Status extends ActiveRecord
 {
     public int $statusId;
     public string $name;
@@ -17,7 +17,7 @@ class Status extends AbstractModel
      * @param array $associative
      * @example new Status(array("StatusId" => 0, "Name" => "Welcome"))
      */
-    public function __construct(array $associative)
+    public function __construct(array $associative = array())
     {
         parent::__construct();
         $this->statusId = (int)$associative["StatusId"] ?? 0;
@@ -25,13 +25,11 @@ class Status extends AbstractModel
         $this->isRemoved = (bool)$associative["IsRemoved"] ?? false;
     }
 
-    public function create($entity): void
+    public function create(): void
     {
-        $this->query(
-            "INSERT INTO Statuses (Name) VALUES (?)",
-            "s",
-            $entity->name
-        );
+        $query = "INSERT INTO Statuses (Name) VALUES (?)";
+
+        $this->query($query, "s", $this->name);
     }
 
     public function getAll(): array
@@ -41,32 +39,29 @@ class Status extends AbstractModel
         return $this->mapFrom($query, Status::class);
     }
 
-    public function getById($id): Status
+    public function getById(): Status
     {
+        $query = "SELECT * FROM Statuses WHERE StatusId = ?";
+
         return new Status(
-            $this->query("SELECT * FROM Statuses WHERE StatusId = ?", "i", $id)
+            $this->query($query, "i", $this->statusId)
                 ->get_result()
                 ->fetch_assoc()
         );
     }
 
-    public function update($entity): void
+    public function update(): void
     {
-        $this->query(
-            "UPDATE Statuses SET Name = ? WHERE StatusId = ?",
-            "si",
-            $entity->name,
-            $entity->statusId
-        );
+        $query = "UPDATE Statuses SET Name = ? WHERE StatusId = ?";
+
+        $this->query($query, "si", $this->name, $this->statusId);
     }
 
-    public function delete($id): void
+    public function delete(): void
     {
-        $this->query(
-            "DELETE FROM Statuses WHERE StatusId = ?",
-            "i",
-            $id
-        );
+        $query = "DELETE FROM Statuses WHERE StatusId = ?";
+
+        $this->query($query, "i", $this->statusId);
     }
 }
 

@@ -1,12 +1,12 @@
-<div class="row mt-5 mb-5">
-    <div class="col-md-12">
-        <h3 class="text-center font-weight-light">Sign in to Robotics World</h3>
+<div class="row mt-5 mb-5 d-flex justify-content-center align-items-center">
+    <div class="col-sm-4">
+        <h3 class="text-center">Sign in to Robotics World</h3>
     </div>
 </div>
 
 <div class="row mb-5 d-flex justify-content-center align-items-center">
     <div class="col-sm-4">
-        <form action="signin-result" method="post" class="bg-white p-4 auth-form-body">
+        <form action="sign-in-result" method="post" class="bg-white p-4 auth-form-body">
             <div class="form-group">
                 <label for="user_username" class="font-weight-bold">Username</label>
 

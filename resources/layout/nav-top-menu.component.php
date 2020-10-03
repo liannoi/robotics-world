@@ -26,7 +26,7 @@
 
                 <ul class="navbar-nav ml-auto">
                     <?
-                    if ($this->username == "") { ?>
+                    if (!$this->isUserAuthenticated()) { ?>
                         <li class="nav-item">
                             <a href="sign-in" class="nav-link font-weight-bold">Sign in</a>
                         </li>
@@ -38,7 +38,7 @@
                     } else { ?>
                         <li class="nav-item">
                             <a href="/" class="nav-link font-weight-bold disabled text-white">
-                                Signed in as <strong><?= $this->username ?></strong>
+                                Signed in as <strong><?= $this->user->username ?></strong>
                             </a>
                         </li>
 

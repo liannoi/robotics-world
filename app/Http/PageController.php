@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http;
 
+require_once "app/Models/User.php";
+require_once "storage/app/UserStorage.php";
+
+use App\Models\User;
+use App\Models\UserBuilder;
+use Storage\App\UserStorage;
+
 class PageController
 {
-    private string $username;
+    private User $user;
     private array $names;
     private string $title;
     private string $id;
@@ -15,15 +22,15 @@ class PageController
 
     public function __construct()
     {
-        $this->id = $this->get_id();
-        $this->username = $this->get_user();
+        $this->id = $this->getId();
+        $this->user = $this->getUser();
         $this->setupNames();
         $this->title = $this->names[$this->id];
         $this->content = "resources/layout/{$this->id}.component.php";
         $this->template = "resources/layout/app.component.php";
     }
 
-    private function get_id(): string
+    private function getId(): string
     {
         $id = $_GET["id"];
         $this->setupNames();
@@ -31,7 +38,7 @@ class PageController
         if (!isset($id)) {
             return "main";
         } elseif (!array_key_exists($id, $this->names)) {
-            return "status_404_not_found";
+            return "status-not-found";
         }
 
         return $id;
@@ -42,22 +49,42 @@ class PageController
         $this->names = require "resources/values-en/names.php";
     }
 
-    private function get_user(): string
+    private function getUser(): User
     {
         $sessionUser = $_SESSION["user"];
         $cookieUser = $_COOKIE["user"];
+        $cachedUser = new User();
 
         if (isset($sessionUser)) {
-            return $sessionUser;
-        } elseif ($cookieUser) {
-            return $cookieUser;
+            $cachedUser = unserialize($sessionUser);
+        } elseif (isset($cookieUser)) {
+            $cachedUser = unserialize($cookieUser);
         }
 
-        return "";
+        if ($cachedUser->userId == 0) {
+            return new User();
+        }
+
+        $actualUser = (new UserBuilder())->withId($cachedUser->userId)->build()->getById();
+        $userStorage = new UserStorage();
+        $userStorage->writeSession($actualUser);
+        $userStorage->writeCookie($actualUser);
+
+        return $userStorage->readSession();
     }
 
     public function load(): void
     {
         include $this->template;
+    }
+
+    public function isUserAuthenticated()
+    {
+        return $this->user->username != "";
+    }
+
+    public function isUserAuthorized()
+    {
+        /* no-op */
     }
 }
