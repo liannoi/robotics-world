@@ -1,19 +1,32 @@
 <div class="row mt-5 mb-5">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mt-3">
         <?
 
         require_once "app/Models/User.php";
         require_once "app/Exceptions/AuthenticationException.php";
         require_once "storage/app/UserStorage.php";
+        require_once "app/Rules/RegexValidator.php";
 
         use App\Exceptions\AuthenticationException;
+        use App\Exceptions\ValidationException;
         use App\Models\UserBuilder;
+        use App\Rules\RegexValidator;
         use Storage\App\UserStorage;
 
         $username = $_POST["user"]["username"];
+        $password = $_POST["user"]["password"];
+        $validator = new RegexValidator();
+
+        try {
+            $validator->username($username);
+            $validator->password($password, $password);
+        } catch (ValidationException $e) {
+            echo "<h6 class='text-center text-monospace text-danger'>{$e->getMessage()}</h6>";
+            return;
+        }
 
         $users = (new UserBuilder())->withUsername($username)
-            ->withPassword($_POST["user"]["password"])
+            ->withPassword($password)
             ->build();
 
         try {
@@ -36,5 +49,5 @@
 </div>
 
 <script>
-  window.location.replace('/');
+  window.location.replace('/profile');
 </script>

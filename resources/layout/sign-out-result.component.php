@@ -1,13 +1,13 @@
 <?php
 
-session_destroy();
+use Storage\App\UserStorage;
 
-if (isset($_COOKIE["user"])) {
-    setcookie("user", "", -1);
-}
+session_destroy();
+$userStorage = new UserStorage();
+$userStorage->destroyCookie();
 
 ?>
 
 <script>
-  window.location = 'main';
+  window.location.replace('/');
 </script>

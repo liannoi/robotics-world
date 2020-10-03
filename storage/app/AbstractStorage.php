@@ -20,4 +20,11 @@ abstract class AbstractStorage
     abstract public function writeCookie($item, $expire);
 
     abstract public function readCookie();
+
+    public function destroyCookie()
+    {
+        if (isset($_COOKIE[$this->key])) {
+            setcookie($this->key, "", -1);
+        }
+    }
 }

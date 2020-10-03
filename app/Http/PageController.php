@@ -78,6 +78,7 @@ class PageController
         include $this->template;
     }
 
+    /** @noinspection PhpUnused */
     public function isUserAuthenticated()
     {
         return $this->user->username != "";

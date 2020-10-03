@@ -32,7 +32,7 @@ $userRoles = (new UserRoleBuilder())->withUser($this->user->userId)->build()->ge
 
 <div class="row mt-1 mb-5">
     <div class="col-sm-12">
-        <table class="table border table-striped table-sm">
+        <table class="table border table-striped table-sm table-responsive-sm">
             <thead class="thead-light table-bordered">
             <tr>
                 <th scope="col">Username</th>
