@@ -15,7 +15,7 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:10.5.5
+    image: mariadb:10.5.6
     ports:
       - "3306:3306"
     volumes:
