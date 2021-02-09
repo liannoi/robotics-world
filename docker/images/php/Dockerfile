@@ -1,4 +1,4 @@
-FROM php:7.4.11-apache
+FROM php:7.4.15-apache
 
 RUN apt-get update -y \
  && apt-get upgrade -y
